@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imperial Wok — Chinese Kitchen &amp; Wok-Fired Pasta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lacquer:#B3202C;
+    --lacquer-dark:#7E1620;
+    --charcoal:#1B1512;
+    --charcoal-2:#241C18;
+    --paper:#F3E8D4;
+    --paper-2:#EADFC7;
+    --gold:#C99A46;
+    --gold-soft:#E4C583;
+    --jade:#33594C;
+    --ink:#2A1F1A;
+    --white:#FBF6EC;
+    --shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Yeseva One', serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+  }
+  .mono{font-family:'Space Mono', monospace;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  ::selection{background:var(--lacquer); color:var(--white);}
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.28em;
+    font-size:0.72rem;
+    color:var(--lacquer);
+    font-weight:700;
+  }
+  .eyebrow.on-dark{color:var(--gold-soft);}
+
+  /* ---------- LAYOUT HELPERS ---------- */
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{position:relative;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(27,21,18,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(201,154,70,0.25);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:14px; padding-bottom:14px;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand svg{width:38px; height:38px; flex-shrink:0;}
+  .brand-name{
+    font-family:'Yeseva One', serif;
+    color:var(--white);
+    font-size:1.28rem;
+    letter-spacing:0.02em;
+  }
+  .brand-name span{color:var(--gold-soft); display:block; font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.32em; margin-top:2px;}
+  .nav-links{display:flex; gap:34px; align-items:center;}
+  .nav-links a{
+    color:var(--paper-2); font-size:0.86rem; font-weight:500;
+    position:relative; padding:4px 0;
+  }
+  .nav-links a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--gold); transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    background:var(--lacquer); color:var(--white) !important;
+    padding:10px 22px; border-radius:2px; font-weight:600; font-size:0.82rem;
+    letter-spacing:0.04em;
+    border:1px solid var(--lacquer);
+    transition:background .25s ease, color .25s ease;
+  }
+  .nav-cta:hover{background:transparent; color:var(--gold-soft) !important;}
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:radial-gradient(ellipse at 20% -10%, rgba(179,32,44,0.55), transparent 55%),
+               radial-gradient(ellipse at 85% 10%, rgba(51,89,76,0.35), transparent 45%),
+               var(--charcoal);
+    color:var(--white);
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:90px;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
+  }
+  .hero-copy .eyebrow{margin-bottom:22px; display:inline-block;}
+  .hero h1{
+    font-size:clamp(3rem, 6.4vw, 5.4rem);
+    line-height:0.98;
+    color:var(--white);
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--lacquer);
+    -webkit-text-stroke:1px var(--gold-soft);
+  }
+  .hero-sub{
+    max-width:460px; margin-top:26px; color:var(--paper-2);
+    font-size:1.05rem;
+  }
+  .hero-actions{display:flex; gap:16px; margin-top:38px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 30px; font-weight:600; font-size:0.9rem;
+    letter-spacing:0.03em; border-radius:2px; cursor:pointer;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease, color .25s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{background:var(--lacquer); color:var(--white);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(179,32,44,0.4);}
+  .btn-ghost{border-color:rgba(251,246,236,0.35); color:var(--white);}
+  .btn-ghost:hover{border-color:var(--gold-soft); color:var(--gold-soft);}
+
+  .hero-visual{position:relative; display:flex; align-items:center; justify-content:center;}
+  .seal-hero{width:100%; max-width:420px; filter:drop-shadow(0 25px 40px rgba(0,0,0,0.5));}
+  .steam{
+    position:absolute; width:3px; background:linear-gradient(to top, transparent, rgba(251,246,236,0.5), transparent);
+    border-radius:3px; filter:blur(1px);
+    animation:rise 4.5s ease-in-out infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(10px) scaleY(0.7); opacity:0;}
+    30%{opacity:0.8;}
+    100%{transform:translateY(-90px) scaleY(1.3); opacity:0;}
+  }
+
+  .hero-strip{
+    position:absolute; bottom:0; left:0; right:0;
+    border-top:1px solid rgba(201,154,70,0.25);
+    background:rgba(0,0,0,0.25);
+    overflow:hidden; white-space:nowrap; padding:14px 0;
+  }
+  .hero-strip .track{
+    display:inline-flex; gap:48px; animation:scroll 32s linear infinite;
+  }
+  .hero-strip span{
+    font-family:'Space Mono',monospace; font-size:0.78rem;
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-soft);
+  }
+  @keyframes scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+
+  /* ---------- SECTION HEADS ---------- */
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px;
+    margin-bottom:48px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(2.1rem, 3.6vw, 3.1rem); color:var(--ink);}
+  .section-head p{max-width:380px; color:#5b4f45; font-size:0.95rem;}
+  .rule{
+    height:1px; background:linear-gradient(to right, var(--gold), transparent);
+    margin:14px 0 22px;
+  }
+
+  .chinese-section{padding:120px 0 100px; background:var(--paper);}
+  .chinese-section::before{
+    content:''; position:absolute; inset:0;
+    background-image:repeating-linear-gradient(135deg, rgba(179,32,44,0.03) 0 2px, transparent 2px 26px);
+    pointer-events:none;
+  }
+
+  /* ---------- STAMP PRICE (signature element) ---------- */
+  .stamp{
+    position:relative;
+    width:64px; height:64px; border-radius:50%;
+    background:var(--lacquer);
+    color:var(--white);
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    flex-shrink:0;
+    box-shadow:0 6px 14px rgba(179,32,44,0.35), inset 0 0 0 1px rgba(251,246,236,0.15);
+  }
+  .stamp::before{
+    content:''; position:absolute; inset:5px; border-radius:50%;
+    border:1px dashed rgba(251,246,236,0.55);
+  }
+  .stamp .cur{font-family:'Space Mono',monospace; font-size:0.55rem; letter-spacing:0.06em; opacity:0.85;}
+  .stamp .num{font-family:'Yeseva One',serif; font-size:1.15rem; line-height:1;}
+  .stamp.small{width:50px; height:50px;}
+  .stamp.small .num{font-size:0.95rem;}
+
+  /* ---------- DISH ICON SYSTEM ---------- */
+  .icon-tile{
+    width:74px; height:74px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--paper-2);
+    border:1px solid rgba(179,32,44,0.15);
+    flex-shrink:0;
+  }
+  .icon-tile svg{width:42px; height:42px;}
+
+  /* ---------- NOODLE / RICE GRID ---------- */
+  .dish-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;
+  }
+  .dish-card{
+    background:var(--white);
+    border:1px solid rgba(42,31,26,0.08);
+    border-radius:3px;
+    padding:28px;
+    position:relative;
+    box-shadow:0 10px 26px rgba(42,31,26,0.06);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .dish-card:hover{transform:translateY(-6px); box-shadow:0 18px 34px rgba(42,31,26,0.14);}
+  .dish-card .top-row{display:flex; align-items:center; gap:16px; margin-bottom:18px;}
+  .dish-card h3{font-size:1.28rem; color:var(--ink);}
+  .dish-card .veg-tag{
+    font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--jade); border:1px solid var(--jade);
+    padding:2px 8px; border-radius:20px; display:inline-block; margin-top:6px;
+  }
+  .dish-card .veg-tag.meat{color:var(--lacquer); border-color:var(--lacquer);}
+  .dish-card p.desc{font-size:0.88rem; color:#6b5d51; margin-bottom:20px;}
+  .price-ladder{
+    display:flex; justify-content:space-between; border-top:1px dashed rgba(42,31,26,0.15); padding-top:16px;
+    gap:10px;
+  }
+  .price-ladder .tier{text-align:center; flex:1;}
+  .price-ladder .tier .label{
+    font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:#8a7c6f; display:block; margin-bottom:6px;
+  }
+  .price-ladder .tier .val{
+    font-family:'Yeseva One',serif; font-size:1.1rem; color:var(--lacquer);
+  }
+  .price-ladder .tier .val::before{content:'AED '; font-family:'Space Mono',monospace; font-size:0.55rem; color:#8a7c6f;}
+
+  /* ---------- PASTA (dark feature) ---------- */
+  .pasta-section{
+    background:var(--charcoal); color:var(--white); padding:120px 0;
+  }
+  .pasta-section .section-head p{color:var(--paper-2);}
+  .pasta-section .section-head h2{color:var(--white);}
+  .pasta-feature{
+    display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-bottom:60px;
+  }
+  .pasta-card{
+    background:linear-gradient(160deg, var(--charcoal-2), #17110E);
+    border:1px solid rgba(201,154,70,0.2);
+    padding:40px; border-radius:3px; position:relative; overflow:hidden;
+  }
+  .pasta-card .pasta-swirl{width:120px; height:120px; margin-bottom:22px; opacity:0.9;}
+  .pasta-card h3{font-size:1.7rem; margin-bottom:10px;}
+  .pasta-card p{color:var(--paper-2); font-size:0.92rem; max-width:320px; margin-bottom:26px;}
+  .pasta-card .stamp{position:absolute; top:32px; right:32px;}
+
+  .small-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;
+  }
+  .small-card{
+    background:rgba(251,246,236,0.04);
+    border:1px solid rgba(201,154,70,0.18);
+    border-radius:3px; padding:22px; text-align:left;
+    transition:background .3s ease, transform .3s ease;
+  }
+  .small-card:hover{background:rgba(201,154,70,0.08); transform:translateY(-4px);}
+  .small-card .icon-tile{background:rgba(201,154,70,0.1); border-color:rgba(201,154,70,0.3); margin-bottom:16px;}
+  .small-card h4{font-family:'Yeseva One',serif; font-size:1.05rem; margin-bottom:6px; color:var(--white);}
+  .small-card .stamp.small{margin-top:14px;}
+
+  /* ---------- SPECIALTY RICE ---------- */
+  .rice-section{padding:120px 0; background:var(--paper-2);}
+  .rice-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .rice-card{
+    background:var(--white); border-radius:3px; padding:26px;
+    border:1px solid rgba(42,31,26,0.08); text-align:center;
+    box-shadow:0 10px 24px rgba(42,31,26,0.05);
+  }
+  .rice-card .icon-tile{margin:0 auto 16px;}
+  .rice-card h4{font-size:1.05rem; margin-bottom:14px;}
+  .rice-card .stamp{margin:0 auto;}
+
+  /* ---------- COMBO ---------- */
+  .combo-section{padding:120px 0; background:var(--paper);}
+  .combo-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px;}
+  .combo-card{
+    background:var(--lacquer); color:var(--white);
+    border-radius:4px; padding:30px 26px; position:relative;
+    box-shadow:0 16px 30px rgba(179,32,44,0.25);
+    display:flex; flex-direction:column; min-height:280px;
+  }
+  .combo-card::after{
+    content:''; position:absolute; inset:8px;
+    border:1px solid rgba(251,246,236,0.3); border-radius:2px; pointer-events:none;
+  }
+  .combo-card .combo-tag{
+    font-family:'Space Mono',monospace; font-size:0.6rem; letter-spacing:0.12em;
+    text-transform:uppercase; background:var(--charcoal); color:var(--gold-soft);
+    padding:4px 10px; border-radius:20px; align-self:flex-start; margin-bottom:18px;
+  }
+  .combo-card h4{font-size:1.3rem; margin-bottom:10px; line-height:1.15;}
+  .combo-card p{font-size:0.85rem; color:rgba(251,246,236,0.85); flex-grow:1;}
+  .combo-card .stamp{background:var(--white); color:var(--lacquer); margin-top:18px;}
+  .combo-card .stamp::before{border-color:rgba(179,32,44,0.4);}
+
+  /* ---------- ABOUT STRIP ---------- */
+  .about-strip{
+    background:var(--jade); color:var(--white); padding:70px 0;
+  }
+  .about-strip .wrap{
+    display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px;
+  }
+  .about-strip h3{font-size:1rem; letter-spacing:0.04em; margin-bottom:10px; color:var(--gold-soft); font-family:'Space Mono',monospace; text-transform:uppercase; font-size:0.75rem;}
+  .about-strip p{font-size:0.92rem; color:rgba(251,246,236,0.85);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--charcoal); color:var(--paper-2); padding:80px 0 30px;}
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:50px;
+    padding-bottom:50px; border-bottom:1px solid rgba(201,154,70,0.2);
+  }
+  .footer-grid h5{
+    font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--gold-soft); margin-bottom:18px;
+  }
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:10px; font-size:0.88rem;}
+  .footer-grid li a:hover{color:var(--gold-soft);}
+  .footer-brand{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .footer-brand svg{width:34px; height:34px;}
+  .footer-brand span{font-family:'Yeseva One',serif; font-size:1.2rem; color:var(--white);}
+  .footer-note{font-size:0.85rem; max-width:280px; color:rgba(251,246,236,0.6);}
+  .bottom-bar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:26px; font-size:0.78rem; color:rgba(251,246,236,0.45); flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- REDUCED MOTION ---------- */
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- FOCUS ---------- */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px){
+    .hero .wrap{grid-template-columns:1fr; text-align:left;}
+    .hero-visual{order:-1; max-width:280px; margin:0 auto 20px;}
+    .dish-grid{grid-template-columns:repeat(2,1fr);}
+    .pasta-feature{grid-template-columns:1fr;}
+    .small-grid{grid-template-columns:repeat(2,1fr);}
+    .rice-grid{grid-template-columns:repeat(2,1fr);}
+    .combo-grid{grid-template-columns:repeat(2,1fr);}
+    .about-strip .wrap{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width: 720px){
+    .nav-links{display:none;}
+    .dish-grid, .small-grid, .rice-grid, .combo-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="22" stroke="#C99A46" stroke-width="1.4"/>
+        <path d="M24 8C24 8 15 14 15 24C15 32 19 36 24 40C29 36 33 32 33 24C33 14 24 8 24 8Z" fill="#B3202C"/>
+        <path d="M24 14C24 14 19 18 19 25C19 30 21.5 33 24 36" stroke="#F3E8D4" stroke-width="1" fill="none"/>
+      </svg>
+      <div class="brand-name">Imperial Wok<span>Chinese Kitchen · Est. Dubai</span></div>
+    </div>
+    <div class="nav-links">
+      <a href="#noodles">Noodles &amp; Rice</a>
+      <a href="#pasta">Pasta</a>
+      <a href="#sides">Wok Sides</a>
+      <a href="#combos">Combo Meals</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a href="#visit" class="nav-cta">Order Now</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow on-dark">Wok-Fired · Since the First Flame</span>
+      <h1>Two Kitchens.<br>One <em>Fire.</em></h1>
+      <p class="hero-sub">Hand-tossed Chinese noodles, claypot fried rice, and slow-simmered pasta sauces — cooked to order in a kitchen that never turns the flame down. Dubai's cloud kitchen for double-wok cravings.</p>
+      <div class="hero-actions">
+        <a href="#noodles" class="btn btn-primary">Explore the Menu</a>
+        <a href="#visit" class="btn btn-ghost">Order for Delivery</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg class="seal-hero" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="180" fill="#241C18" stroke="#C99A46" stroke-width="1.5"/>
+        <circle cx="200" cy="200" r="150" stroke="#B3202C" stroke-width="2" stroke-dasharray="4 8"/>
+        <!-- noodle swirl -->
+        <path d="M120 230C140 190 160 260 180 220C200 180 220 250 240 210C260 170 280 240 290 200" stroke="#F3E8D4" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M120 250C140 210 160 280 180 240C200 200 220 270 240 230C260 190 280 260 290 220" stroke="#C99A46" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <ellipse cx="200" cy="270" rx="95" ry="26" fill="#B3202C"/>
+        <ellipse cx="200" cy="264" rx="95" ry="24" fill="#8E1B24"/>
+        <circle cx="160" cy="180" r="6" fill="#B3202C"/>
+        <circle cx="235" cy="195" r="5" fill="#33594C"/>
+        <circle cx="205" cy="160" r="4" fill="#C99A46"/>
+      </svg>
+      <div class="steam" style="left:44%; top:10%; height:60px; animation-delay:0s;"></div>
+      <div class="steam" style="left:50%; top:8%; height:70px; animation-delay:1.2s;"></div>
+      <div class="steam" style="left:56%; top:12%; height:55px; animation-delay:2.1s;"></div>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <div class="track">
+      <span>Mix Noodles</span><span>Schezwan Fried Rice</span><span>Chicken Manchurian</span><span>Red Sauce Pasta</span><span>Singapore Fried Rice</span><span>Chicken 65</span><span>Rice Combo Meals</span><span>Garlic Chicken</span>
+      <span>Mix Noodles</span><span>Schezwan Fried Rice</span><span>Chicken Manchurian</span><span>Red Sauce Pasta</span><span>Singapore Fried Rice</span><span>Chicken 65</span><span>Rice Combo Meals</span><span>Garlic Chicken</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT STRIP ================= -->
+<section class="about-strip">
+  <div class="wrap">
+    <div>
+      <h3>The Wok</h3>
+      <p>Carbon-steel woks fired at 300°C, tossed by hand for the char you can only get from real flame — never a flat-top.</p>
+    </div>
+    <div>
+      <h3>The Claypot</h3>
+      <p>Fried rice finished in seasoned clay for a bottom crust that stays crisp all the way to your door.</p>
+    </div>
+    <div>
+      <h3>The Sauce Pot</h3>
+      <p>Red and white pasta sauces simmered low for six hours, a nod to the kitchen next door and the guests who love both.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NOODLES & FRIED RICE ================= -->
+<section class="chinese-section" id="noodles">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Chinese Cuisine</span>
+        <h2>Noodles &amp; Fried Rice</h2>
+      </div>
+      <p>Every bowl is built to order across four proteins — vegetable, egg, chicken, beef, or double prawns — priced by the size of your appetite.</p>
+    </div>
+
+    <div class="dish-grid">
+
+      <div class="dish-card">
+        <div class="top-row">
+          <div class="icon-tile">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M8 22c4-8 8 6 12-2s8 6 12-2s6 4 8-2" stroke="#B3202C" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="24" cy="34" rx="17" ry="5" fill="#B3202C"/></svg>
+          </div>
+          <div>
+            <h3>Mix Noodles</h3>
+            <span class="veg-tag meat">Chef's Signature</span>
+          </div>
+        </div>
+        <p class="desc">Wok-tossed egg noodles with a medley of vegetables, scallion, and a smoked soy finish.</p>
+        <div class="price-ladder">
+          <div class="tier"><span class="label">Veg</span><span class="val mono">14</span></div>
+          <div class="tier"><span class="label">Chicken</span><span class="val mono">17</span></div>
+          <div class="tier"><span class="label">Beef</span><span class="val mono">18</span></div>
+          <div class="tier"><span class="label">Prawns</span><span class="val mono">19</span></div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="top-row">
+          <div class="icon-tile">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M8 22c4-8 8 6 12-2s8 6 12-2s6 4 8-2" stroke="#B3202C" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="24" cy="34" rx="17" ry="5" fill="#B3202C"/></svg>
+          </div>
+          <div>
+            <h3>Schezwan Noodles</h3>
+            <span class="veg-tag">Fiery</span>
+          </div>
+        </div>
+        <p class="desc">Our house Schezwan chilli-garlic sauce, blistered peppers, and a lasting numbing heat.</p>
+        <div class="price-ladder">
+          <div class="tier"><span class="label">Veg</span><span class="val mono">14</span></div>
+          <div class="tier"><span class="label">Chicken</span><span class="val mono">17</span></div>
+          <div class="tier"><span class="label">Beef</span><span class="val mono">18</span></div>
+          <div class="tier"><span class="label">Prawns</span><span class="val mono">19</span></div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="top-row">
+          <div class="icon-tile">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="10" y="14" width="28" height="20" rx="3" fill="#C99A46" opacity="0.25"/><circle cx="18" cy="22" r="2.4" fill="#B3202C"/><circle cx="26" cy="26" r="2.4" fill="#33594C"/><circle cx="32" cy="20" r="2.4" fill="#B3202C"/><circle cx="22" cy="30" r="2.4" fill="#C99A46"/></svg>
+          </div>
+          <div>
+            <h3>Egg Fried Rice</h3>
+            <span class="veg-tag">Everyday Favourite</span>
+          </div>
+        </div>
+        <p class="desc">Day-old jasmine rice, wok-scrambled egg ribbons, and a whisper of white pepper.</p>
+        <div class="price-ladder">
+          <div class="tier"><span class="label">Veg</span><span class="val mono">12</span></div>
+          <div class="tier"><span class="label">Chicken</span><span class="val mono">15</span></div>
+          <div class="tier"><span class="label">Beef</span><span class="val mono">16</span></div>
+          <div class="tier"><span class="label">Prawns</span><span class="val mono">17</span></div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="top-row">
+          <div class="icon-tile">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="10" y="14" width="28" height="20" rx="3" fill="#C99A46" opacity="0.25"/><circle cx="18" cy="22" r="2.4" fill="#B3202C"/><circle cx="26" cy="26" r="2.4" fill="#33594C"/><circle cx="32" cy="20" r="2.4" fill="#B3202C"/><circle cx="22" cy="30" r="2.4" fill="#C99A46"/></svg>
+          </div>
+          <div>
+            <h3>Chicken Fried Rice</h3>
+            <span class="veg-tag meat">Best Seller</span>
+          </div>
+        </div>
+        <p class="desc">Diced chicken thigh, carrot, and spring onion, finished with a dark soy glaze.</p>
+        <div class="price-ladder">
+          <div class="tier"><span class="label">Regular</span><span class="val mono">17</span></div>
+          <div class="tier"><span class="label">Large</span><span class="val mono">20</span></div>
+          <div class="tier"><span class="label">Family</span><span class="val mono">28</span></div>
+          <div class="tier"><span class="label">Jumbo</span><span class="val mono">34</span></div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="top-row">
+          <div class="icon-tile">
+            <svg viewBox="0 0 48 48" fill="none"><rect x="10" y="14" width="28" height="20" rx="3" fill="#C99A46" opacity="0.25"/><circle cx="18" cy="22" r="2.4" fill="#33594C"/><circle cx="26" cy="26" r="2.4" fill="#33594C"/><circle cx="32" cy="20" r="2.4" fill="#33594C"/><circle cx="22" cy="30" r="2.4" fill="#C99A46"/></svg>
+          </div>
+          <div>
+            <h3>Vegetable Fried Rice</h3>
+            <span class="veg-tag">Garden Fresh</span>
+          </div>
+        </div>
+        <p class="desc">Seven-vegetable medley, garlic oil, and toasted sesame over jasmine rice.</p>
+        <div class="price-ladder">
+          <div class="tier"><span class="label">Regular</span><span class="val mono">13</span></div>
+          <div class="tier"><span class="label">Large</span><span class="val mono">16</span></div>
+          <div class="tier"><span class="label">Family</span><span class="val mono">22</span></div>
+          <div class="tier"><span class="label">Jumbo</span><span class="val mono">28</span></div>
+        </div>
+      </div>
+
+      <div class="dish-card">
+        <div class="top-row">
+          <div class="icon-tile">
+            <svg viewBox="0 0 48 48" fill="none"><path d="M8 22c4-8 8 6 12-2s8 6 12-2s6 4 8-2" stroke="#B3202C" stroke-width="2.4" fill="none" stroke-linecap="round"/><ellipse cx="24" cy="34" rx="17" ry="5" fill="#B3202C"/></svg>
+          </div>
+          <div>
+            <h3>Prawns Noodles</h3>
+            <span class="veg-tag meat">Ocean Catch</span>
+          </div>
+        </div>
+        <p class="desc">Wild-caught prawns, snow peas, and a light garlic-butter noodle toss.</p>
+        <div class="price-ladder">
+          <div class="tier"><span class="label">Regular</span><span class="val mono">19</span></div>
+          <div class="tier"><span class="label">Large</span><span class="val mono">24</span></div>
+          <div class="tier"><span class="label">Family</span><span class="val mono">32</span></div>
+          <div class="tier"><span class="label">Jumbo</span><span class="val mono">40</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= PASTA ================= -->
+<section class="pasta-section" id="pasta">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow on-dark">Pasta Kitchen</span>
+        <h2>Red &amp; White Sauce</h2>
+      </div>
+      <p>The other side of the wok — Italian-leaning pastas simmered the same way we simmer everything: slow, and with too much garlic.</p>
+    </div>
+
+    <div class="pasta-feature">
+      <div class="pasta-card">
+        <svg class="pasta-swirl" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="52" fill="#3E2723" opacity="0.4"/>
+          <path d="M30 55c8-14 14 12 22-2s14 12 22-2s10 8 16-2" stroke="#E4C583" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <circle cx="42" cy="70" r="4" fill="#B3202C"/>
+          <circle cx="60" cy="66" r="4" fill="#B3202C"/>
+          <circle cx="78" cy="72" r="4" fill="#B3202C"/>
+        </svg>
+        <h3>Red Sauce Pasta</h3>
+        <p>San Marzano tomato, roasted garlic, basil, and a slow six-hour simmer — penne or fusilli, your call.</p>
+        <div class="stamp"><span class="cur mono">AED</span><span class="num">20</span></div>
+      </div>
+      <div class="pasta-card">
+        <svg class="pasta-swirl" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="52" fill="#3E2723" opacity="0.4"/>
+          <path d="M30 55c8-14 14 12 22-2s14 12 22-2s10 8 16-2" stroke="#E4C583" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <circle cx="42" cy="70" r="4" fill="#F3E8D4"/>
+          <circle cx="60" cy="66" r="4" fill="#F3E8D4"/>
+          <circle cx="78" cy="72" r="4" fill="#F3E8D4"/>
+        </svg>
+        <h3>White Sauce Pasta</h3>
+        <p>A butter-and-parmesan bechamel, cracked pepper, and torn herbs finished tableside-style.</p>
+        <div class="stamp"><span class="cur mono">AED</span><span class="num">20</span></div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-bottom:32px;">
+      <div>
+        <span class="eyebrow on-dark">Wok Sides</span>
+        <h2 id="sides" style="font-size:2.2rem;">Manchurian &amp; Chilli</h2>
+      </div>
+    </div>
+
+    <div class="small-grid">
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#B3202C" opacity="0.25"/><circle cx="18" cy="24" r="3" fill="#B3202C"/><circle cx="26" cy="24" r="3" fill="#B3202C"/><circle cx="34" cy="24" r="3" fill="#B3202C"/></svg></div>
+        <h4>Chicken Manchurian</h4>
+        <p class="desc">Crisp chicken tossed in tangy Indo-Chinese gravy.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">14</span></div>
+      </div>
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#B3202C" opacity="0.25"/><circle cx="18" cy="24" r="3" fill="#B3202C"/><circle cx="26" cy="24" r="3" fill="#B3202C"/><circle cx="34" cy="24" r="3" fill="#B3202C"/></svg></div>
+        <h4>Chicken Chilli</h4>
+        <p class="desc">Bell peppers, onion, and dry-red chilli glaze.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">14</span></div>
+      </div>
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#33594C" opacity="0.3"/><circle cx="18" cy="24" r="3" fill="#33594C"/><circle cx="26" cy="24" r="3" fill="#33594C"/><circle cx="34" cy="24" r="3" fill="#33594C"/></svg></div>
+        <h4>Garlic Chicken</h4>
+        <p class="desc">Double-fried, tossed heavy in roasted garlic.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">14</span></div>
+      </div>
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#33594C" opacity="0.3"/><circle cx="18" cy="24" r="3" fill="#33594C"/><circle cx="26" cy="24" r="3" fill="#33594C"/><circle cx="34" cy="24" r="3" fill="#33594C"/></svg></div>
+        <h4>Veg Manchurian</h4>
+        <p class="desc">Cabbage-carrot dumplings in Manchurian gravy.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">12</span></div>
+      </div>
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#B3202C" opacity="0.25"/><circle cx="18" cy="24" r="3" fill="#B3202C"/><circle cx="26" cy="24" r="3" fill="#B3202C"/><circle cx="34" cy="24" r="3" fill="#B3202C"/></svg></div>
+        <h4>Chicken 65</h4>
+        <p class="desc">Curry-leaf fried chicken, our fieriest bite.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">15</span></div>
+      </div>
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#B3202C" opacity="0.25"/><circle cx="18" cy="24" r="3" fill="#B3202C"/><circle cx="26" cy="24" r="3" fill="#B3202C"/><circle cx="34" cy="24" r="3" fill="#B3202C"/></svg></div>
+        <h4>Beef Manchurian</h4>
+        <p class="desc">Slow-braised beef cubes in dark soy gravy.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">15</span></div>
+      </div>
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#B3202C" opacity="0.25"/><circle cx="18" cy="24" r="3" fill="#B3202C"/><circle cx="26" cy="24" r="3" fill="#B3202C"/><circle cx="34" cy="24" r="3" fill="#B3202C"/></svg></div>
+        <h4>Beef Chilli</h4>
+        <p class="desc">Seared beef strips, capsicum, black pepper.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">15</span></div>
+      </div>
+      <div class="small-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="16" width="28" height="16" rx="8" fill="#33594C" opacity="0.3"/><circle cx="18" cy="24" r="3" fill="#33594C"/><circle cx="26" cy="24" r="3" fill="#33594C"/><circle cx="34" cy="24" r="3" fill="#33594C"/></svg></div>
+        <h4>Gobi Manchurian / Chilli</h4>
+        <p class="desc">Batter-fried cauliflower, choice of sauce.</p>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">12</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SPECIALTY RICE ================= -->
+<section class="rice-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">House Specialties</span>
+        <h2>Specialty Rice</h2>
+      </div>
+      <p>Four ways to end the meal on rice — from an American diner classic to a citrus-bright South Indian favourite.</p>
+    </div>
+    <div class="rice-grid">
+      <div class="rice-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="14" width="28" height="20" rx="3" fill="#C99A46" opacity="0.25"/><circle cx="18" cy="22" r="2.4" fill="#B3202C"/><circle cx="26" cy="26" r="2.4" fill="#33594C"/><circle cx="32" cy="20" r="2.4" fill="#B3202C"/></svg></div>
+        <h4>American Chopsuey</h4>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">20</span></div>
+      </div>
+      <div class="rice-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="14" width="28" height="20" rx="3" fill="#C99A46" opacity="0.25"/><circle cx="18" cy="22" r="2.4" fill="#B3202C"/><circle cx="26" cy="26" r="2.4" fill="#33594C"/><circle cx="32" cy="20" r="2.4" fill="#B3202C"/></svg></div>
+        <h4>Singapore Fried Rice</h4>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">17</span></div>
+      </div>
+      <div class="rice-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="14" width="28" height="20" rx="3" fill="#C99A46" opacity="0.25"/><circle cx="18" cy="22" r="2.4" fill="#B3202C"/><circle cx="26" cy="26" r="2.4" fill="#33594C"/><circle cx="32" cy="20" r="2.4" fill="#B3202C"/></svg></div>
+        <h4>Tripple Fried Rice</h4>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">22</span></div>
+      </div>
+      <div class="rice-card">
+        <div class="icon-tile"><svg viewBox="0 0 48 48"><rect x="10" y="14" width="28" height="20" rx="3" fill="#C99A46" opacity="0.3"/><circle cx="20" cy="24" r="6" fill="#C99A46"/></svg></div>
+        <h4>Lemon Rice</h4>
+        <div class="stamp small"><span class="cur mono">AED</span><span class="num">10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMBO MEALS ================= -->
+<section class="combo-section" id="combos">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Boxed for One</span>
+        <h2>Rice Combo Meal</h2>
+      </div>
+      <p>Rice, a signature side, and enough sauce to justify licking the box. Built for the desk-lunch crowd.</p>
+    </div>
+    <div class="combo-grid">
+      <div class="combo-card">
+        <span class="combo-tag">Combo 01</span>
+        <h4>Fried Rice + Manchurian</h4>
+        <p>Vegetable fried rice paired with our classic Manchurian gravy.</p>
+        <div class="stamp"><span class="cur mono">AED</span><span class="num">23</span></div>
+      </div>
+      <div class="combo-card">
+        <span class="combo-tag">Combo 02</span>
+        <h4>Fried Rice + Chilli</h4>
+        <p>Egg fried rice with a fiery chicken chilli side.</p>
+        <div class="stamp"><span class="cur mono">AED</span><span class="num">20</span></div>
+      </div>
+      <div class="combo-card">
+        <span class="combo-tag">Combo 03</span>
+        <h4>Fried Rice + Veg Manchurian</h4>
+        <p>Vegetable fried rice, cabbage-carrot Manchurian balls.</p>
+        <div class="stamp"><span class="cur mono">AED</span><span class="num">20</span></div>
+      </div>
+      <div class="combo-card">
+        <span class="combo-tag">Combo 04</span>
+        <h4>Fried Rice + Half Grilled Chicken</h4>
+        <p>Chicken fried rice with a half portion of chargrilled chicken.</p>
+        <div class="stamp"><span class="cur mono">AED</span><span class="num">25</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="visit">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#C99A46" stroke-width="1.4"/><path d="M24 8C24 8 15 14 15 24C15 32 19 36 24 40C29 36 33 32 33 24C33 14 24 8 24 8Z" fill="#B3202C"/></svg>
+          <span>Imperial Wok</span>
+        </div>
+        <p class="footer-note">Wok-fired Chinese classics and slow-simmered pasta, cooked to order and delivered across Dubai. One kitchen, two menus, zero compromise on the flame.</p>
+      </div>
+      <div>
+        <h5>Menu</h5>
+        <ul>
+          <li><a href="#noodles">Noodles &amp; Fried Rice</a></li>
+          <li><a href="#pasta">Red &amp; White Pasta</a></li>
+          <li><a href="#sides">Manchurian &amp; Chilli</a></li>
+          <li><a href="#combos">Rice Combo Meals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Hours</h5>
+        <ul>
+          <li>Sun – Thu: 12pm – 12am</li>
+          <li>Fri – Sat: 12pm – 2am</li>
+          <li>Delivery only, 7 days</li>
+        </ul>
+      </div>
+      <div>
+        <h5>Order</h5>
+        <ul>
+          <li><a href="tel:+97140000000">+971 4 000 0000</a></li>
+          <li><a href="#">Talabat</a></li>
+          <li><a href="#">Deliveroo</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-bar">
+      <span>© 2026 Imperial Wok Kitchen, Dubai. Concept menu &amp; design mock-up.</span>
+      <span>Crafted with wok hei and too much garlic.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
